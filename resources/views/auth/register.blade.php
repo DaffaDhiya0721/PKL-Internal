@@ -74,24 +74,41 @@
                 <form class="row g-3" method="post" action="{{route('register')}}">
                     @csrf
                   <div class="col-12">
-                    <label for="inputUsername" class="form-label">Username</label>
-                    <input type="text" class="form-control" id="inputUsername" placeholder="Jhon">
+                    <label for="inputUsername" class="form-label">Name</label>
+                    <input type="text" name="name" class="form-control @error ('name') is-invalid @enderror" id="inputUsername">
+                    @error ('name')
+                    <span class="invalid-feedback" role="alert">
+                        <strong>{{ $message }}</strong>
+                    </span>
+                    @enderror
                   </div>
                   <div class="col-12">
                     <label for="inputEmailAddress" class="form-label">Email Address</label>
-                    <input type="email" class="form-control" id="inputEmailAddress" placeholder="example@user.com">
+                    <input type="email" name="email" class="form-control @error ('email') is-invalid @enderror" id="inputEmailAddress"
+                    placeholder="example@user.com">
+                    @error ('email')
+                    <span class="invalid-feedback" role="alert">
+                        <strong>{{ $message }}</strong>
+                    </span>
+                    @enderror
                   </div>
                   <div class="col-12">
                     <label for="inputChoosePassword" class="form-label">Password</label>
                     <div class="input-group" id="show_hide_password">
-                      <input type="password" class="form-control" id="inputChoosePassword" placeholder="Enter Password">
-                       <a href="javascript:;" class="input-group-text bg-transparent"><i class="bi bi-eye-slash-fill"></i></a>
+                      <input type="password" name="password" class="form-control @error ('password') is-invalid @enderror" id="inputChoosePassword"
+                      placeholder="Enter Password">
+                      @error ('password')
+                       <a href="javascript:;" class="input-group-text bg-transparent"></a>
+                       <span class="invalid-feedback" role="alert">
+                        <strong>{{ $message }}</strong>
+                    </span>
+                    @enderror
                     </div>
                   </div>
                   <div class="col-12">
                     <label for="inputChoosePassword" class="form-label">Password Confirmation</label>
                     <div class="input-group" id="show_hide_password">
-                      <input type="password" class="form-control" id="inputChoosePassword" placeholder="Enter Password">
+                      <input type="password" name="password_confirmation" class="form-control" id="inputChoosePassword" placeholder="Enter Password">
                        <a href="javascript:;" class="input-group-text bg-transparent"><i class="bi bi-eye-slash-fill"></i></a>
                     </div>
                   </div>
