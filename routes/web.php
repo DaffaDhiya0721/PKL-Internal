@@ -10,18 +10,13 @@ Auth::routes();
 
 Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
 
-// Route::get('tes', function () {
-//     return view('layouts.admin');
-// });
-
+// Route Admin(Backend)
 Route::group(['prefix' => 'admin', 'middleware' => 'auth'], function () {
     Route::get('/', function () {
-        return view('admin.dashboard');
+        return view('layouts.admin.index');
     });
-});
-
-Route::get('dashboard', function () {
-    return view('admin.dashboard');
+    // Untuk Route Backend Lainnya
+    Route::resource('user', App\Http\Controllers\UserController::class);
 });
 
 Route::get('tes', function () {

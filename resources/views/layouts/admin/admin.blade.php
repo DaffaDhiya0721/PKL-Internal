@@ -28,6 +28,7 @@
   <link href="../sass/semi-dark.css" rel="stylesheet">
   <link href="../sass/bordered-theme.css" rel="stylesheet">
   <link href="../sass/responsive.css" rel="stylesheet">
+  @yield('styles')
 
 </head>
 
@@ -45,13 +46,7 @@
   <!--start main wrapper-->
   <main class="main-wrapper">
     <div class="main-content">
-      <!--breadcrumb-->
-				<!--end breadcrumb-->
-
-
-
-
-
+        @yield('content')
     </div>
   </main>
   <!--end main wrapper-->
@@ -280,6 +275,7 @@
   <script>
 	   new PerfectScrollbar(".user-list")
   </script>
+  @stack('scripts')
 
 </body>
 
