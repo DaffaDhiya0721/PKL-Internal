@@ -1,9 +1,11 @@
 <?php
 
+use App\Http\Controllers\FrontController;
+use App\Http\Middleware\IsAdmin;
 use Illuminate\Support\Facades\Route;
 
 Route::get('/', function () {
-    return view('welcome');
+    return view('layouts.index');
 });
 
 Auth::routes();
@@ -13,7 +15,7 @@ Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name
 // Route Admin(Backend)
 Route::group(['prefix' => 'admin', 'middleware' => 'auth'], function () {
     Route::get('/', function () {
-        return view('layouts.admin.index');
+        return view('admin.index');
     });
     // Untuk Route Backend Lainnya
     Route::resource('user', App\Http\Controllers\UserController::class);

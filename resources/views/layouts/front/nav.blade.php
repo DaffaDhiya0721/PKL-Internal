@@ -25,6 +25,70 @@
                          </div>
                       </form>
                    </div>
+                   <div class="header-meta header-language d-flex align-items-center">
+                    <div class="header-meta__lang">
+                       <ul>
+                          <li>
+                             <a href="#">
+                                <img src="assets/img/icon/lang-flag.png" alt="flag">English
+                                <span><i class="fal fa-angle-down"></i></span>
+                             </a>
+                             <ul class="header-meta__lang-submenu">
+                                <li>
+                                   <a href="#">Arabic</a>
+                                </li>
+                                <li>
+                                   <a href="#">Spanish</a>
+                                </li>
+                                <li>
+                                   <a href="#">Mandarin</a>
+                                </li>
+                             </ul>
+                          </li>
+                       </ul>
+                    </div>
+                    <div class="header-meta__value mr-15">
+                       <select>
+                          <option>USD</option>
+                          <option>YEAN</option>
+                          <option>EURO</option>
+                       </select>
+                    </div>
+                    <div class="header-meta__social d-flex align-items-center ml-25">
+                       <button class="header-cart p-relative tp-cart-toggle">
+                          <i class="fal fa-shopping-cart"></i>
+                          <span class="tp-product-count">2</span>
+                        </button>
+                        @guest
+                        <a href="wishlist.html"><i class="fal fa-heart"></i></a>
+                        <a href="{{url('login')}}" class="header-meta__value mr-15">
+                            <i class="fal fa-user"></i></a>
+                        @else
+                        <div class="header-meta__lang">
+                            <ul>
+                                <li>
+                                    <a href="#">
+                                        {{Auth::user()->name}}
+                                        <span><i class="fal fa-angel-down"></i></span>
+                                    </a>
+                                    <ul class="header-meta__lang-submenu">
+                                        <li>
+                                            <a href="#">Profile</a>
+                                        </li>
+                                        <hr>
+                                        <li>
+                                            <a href="{{route('logout')}}"
+                                            onclick="event.preventDefault(); document.getElementById('logout-form').submit();">Logout</a>
+                                                <form action="{{route('logout')}}" method="POST" id="logout-form">
+                                                    @csrf
+                                                </form>
+                                        </li>
+                                    </ul>
+                                </li>
+                            </ul>
+                        </div>
+                        @endguest
+                    </div>
                 </div>
              </div>
           </div>

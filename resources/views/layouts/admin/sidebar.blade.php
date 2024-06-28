@@ -1,7 +1,7 @@
 <aside class="sidebar-wrapper" data-simplebar="true">
     <div class="sidebar-header">
       <div class="logo-icon">
-        <img src="../assets/images/logo-icon.png" class="logo-img" alt="">
+        <img src="{{asset('assets/images/logo-icon.png')}}" class="logo-img" alt="">
       </div>
       <div class="logo-name flex-grow-1">
         <h5 class="mb-0">Maxton</h5>
@@ -13,19 +13,16 @@
     <div class="sidebar-nav">
         <!--navigation-->
         <ul class="metismenu" id="sidenav">
-          <li>
-            <a href="javascript:;" class="has-arrow">
+            <a href="{{url('/home')}}">
               <div class="parent-icon"><i class="material-icons-outlined">home</i>
               </div>
-              <div class="menu-title">Dashboard</div>
+              <div class="parent-icon">Dashboard</div>
             </a>
-            <ul>
-              <li><a href="index.html"><i class="material-icons-outlined">arrow_right</i>Analysis</a>
-              </li>
-              <li><a href="index2.html"><i class="material-icons-outlined">arrow_right</i>eCommerce</a>
-              </li>
-            </ul>
-          </li>
+            <a href="{{route('user.index')}}">
+                <div class="parent-icon"><i class="material-icons-outlined">person</i>
+                </div>
+                <div class="menu-title">User</div>
+              </a>
           <li>
             <a href="javascript:;" class="has-arrow">
               <div class="parent-icon"><i class="material-icons-outlined">widgets</i>
@@ -69,7 +66,7 @@
             </a>
           </li>
 
-          <li>
+          <li>-z
             <a href="javascript:;" class="has-arrow">
               <div class="parent-icon"><i class="material-icons-outlined">shopping_bag</i>
               </div>

@@ -2,6 +2,7 @@
 
 namespace App\Http\Middleware;
 
+use Auth;
 use Closure;
 use Illuminate\Http\Request;
 use Symfony\Component\HttpFoundation\Response;
@@ -13,11 +14,11 @@ class IsAdmin
      *
      * @param  \Closure(\Illuminate\Http\Request): (\Symfony\Component\HttpFoundation\Response)  $next
      */
-    public function handle($request, Closure $next)
+    public function handle($request, Closure $next): Response
     {
-     if (Auth::user() &&  Auth::user()->isAdmin == 1) {
-            return $next($request);
+     if (Auth::user()->isAdmin != 1) {
+        return redirect('/');
      }
-    return redirect('/');
+     return $next($request);
     }
 }
