@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Barang;
 use App\Models\Kategori;
 use Illuminate\Http\Request;
 use Alert;
@@ -11,9 +12,9 @@ class KategoriController extends Controller
 
     public function index()
     {
-        $kategoris = Kategori::all();
+        $kategori = Kategori::all();
         confirmDelete("Delete", "Apa Kamu Yakin?");
-        return view('admin.kategori.index', compact('kategoris'));
+        return view('admin.kategori.index', compact('kategori'));
     }
 
     public function create()
@@ -25,7 +26,7 @@ class KategoriController extends Controller
     {
         $this->validate($request, [
             'nama' => 'required',
-            'jumlah' => 'required',
+            'jumlah' => 'required|nullable',
         ]);
 
         $kategori = new Kategori();
@@ -60,7 +61,7 @@ class KategoriController extends Controller
     {
         $this->validate($request, [
             'nama' => 'required',
-            'jumlah' => 'required',
+            'jumlah' => 'required|nullable',
         ]);
 
         $kategori = Kategori::findOrFail($id);

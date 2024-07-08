@@ -1,10 +1,10 @@
 <aside class="sidebar-wrapper" data-simplebar="true">
     <div class="sidebar-header">
       <div class="logo-icon">
-        <img src="{{asset('assets/images/logo-icon.png')}}" class="logo-img" alt="">
+        <a href="https://smkassalaambandung.sch.id/"><img src="https://pklsmk.com/wp-content/uploads/2022/02/5a1e12ade5d4d.png" class="logo-img"></a>
       </div>
       <div class="logo-name flex-grow-1">
-        <h5 class="mb-0">Maxton</h5>
+        <h5 class="mb-0">INVENTARIS</h5>
       </div>
       <div class="sidebar-close">
         <span class="material-icons-outlined">close</span>
@@ -17,7 +17,7 @@
             <a href="{{url('/home')}}">
               <div class="parent-icon"><i class="material-icons-outlined">home</i>
               </div>
-              <div class="menu-title">Dashboard</div>
+              <div class="menu-title">Home</div>
             </a>
         </li>
         <li>

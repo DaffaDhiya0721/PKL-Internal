@@ -34,21 +34,22 @@ class BarangKeluarController extends Controller
     public function store(Request $request)
     {
         $this->validate($request, [
-            'id_barang' => 'required',
+            'id_barangs' => 'required',
             'tanggal_keluar' => 'required',
             'jumlah' => 'required',
             'keterangan' => 'required',
         ]);
 
         $barang_keluar = new Barang_Keluar();
-        $barang_keluar->id_barang = $request->id_barang;
+        $barang_keluar->id_barangs = $request->id_barangs;
         $barang_keluar->tanggal_keluar = $request->tanggal_keluar;
         $barang_keluar->jumlah = $request->jumlah;
         $barang_keluar->keterangan = $request->keterangan;
 
-        $barang = Barang::find($request->id_barang);
-        $barang->stok -= $request->jumlah;
+        $barang = Barang::find($request->id_barangs);
+        $barang->jumlah -= $request->jumlah;
         $barang->save();
+        $barang_keluar->save();
         Alert::success('Success', 'Data Berhasil di Simpan')->autoClose(5000);
         return redirect()->route('barang_keluar.index');
     }
@@ -77,19 +78,22 @@ class BarangKeluarController extends Controller
     public function update(Request $request, Barang_Keluar $barang_Keluar)
     {
         $this->validate($request, [
+            'id_barangs' => 'required',
             'tanggal_keluar' => 'required',
             'jumlah' => 'required',
             'keterangan' => 'required',
         ]);
 
         $barang_keluar = Barang_Keluar::findOrFail($id);
+        $barang_keluar->id_barangs = $request->id_barangs;
         $barang_keluar->tanggal_keluar = $request->tanggal_keluar;
         $barang_keluar->jumlah = $request->jumlah;
         $barang_keluar->keterangan = $request->keterangan;
 
-        $barang = Barang::find($request->id_barang);
-        $barang->stok -= $request->jumlah;
+        $barang = Barang::find($request->id_barangs);
+        $barang->jumlah -= $request->jumlah;
         $barang->save();
+        $barang_Keluar->save();
         Alert::success('Success', 'Data Berhasil di Edit')->autoClose(5000);
         return redirect()->route('barang_keluar.index');
     }

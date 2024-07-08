@@ -14,9 +14,9 @@ class PengembalianController extends Controller
      */
     public function index()
     {
-        $pengembalians = Pengembalian::all();
+        $pengembalian = Pengembalian::all();
         confirmDelete("Delete", "Apa Kamu Yakin?");
-        return view('admin.pengembalian.index', compact('pengembalians'));
+        return view('admin.pengembalian.index', compact('pengembalian'));
     }
 
     /**

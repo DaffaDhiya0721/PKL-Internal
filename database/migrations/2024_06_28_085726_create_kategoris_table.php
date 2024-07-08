@@ -14,8 +14,7 @@ return new class extends Migration
         Schema::create('kategoris', function (Blueprint $table) {
             $table->id();
             $table->string('nama');
-            $table->integer('jumlah');
-            $table->foreign('jumlah')->references('jumlah')->on('barangs')->onDelete('cascade');
+            $table->integer('jumlah')->nullable();
             $table->timestamps();
         });
     }

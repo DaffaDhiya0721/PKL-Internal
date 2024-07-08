@@ -25,10 +25,10 @@
             @csrf
             @method('PUT')
             <div class="mb-3">
-                <label for="" class="form-label">Name</label>
-                <input type="text" name="name" class="form-control @error('name') is-invlaid @enderror"
-                placeholder="Name" value="{{$kategori->name}}">
-            @error('name')
+                <label for="" class="form-label">Nama</label>
+                <input type="text" name="nama" class="form-control @error('nama') is-invlaid @enderror"
+                placeholder="nama" value="{{$kategori->nama}}">
+            @error('nama')
             <span class="invalid-feedback" role="alert">
                 <strong>{{ $message }}</strong>
             </span>

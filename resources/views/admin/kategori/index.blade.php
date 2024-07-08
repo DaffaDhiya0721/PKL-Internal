@@ -34,17 +34,17 @@
                     <tr>
                         <th>No</th>
                         <th>Nama</th>
-                        <th>Stok</th>
+                        <th>Jumlah</th>
                         <th>Aksi</th>
                     </tr>
                 </thead>
                 <tbody>
                     @php $i = 1; @endphp
-                    @foreach ($kategoris as $data)
+                    @foreach ($kategori as $data)
                     <tr>
                         <td>{{$i++}}</td>
                         <td>{{$data->nama}}</td>
-                        <td>{{$data->stok}}</td>
+                        <td>{{$data->jumlah}}</td>
                         <td>
                             <form action="{{route('kategori.destroy', $data->id)}}" method="post">
                                 @csrf

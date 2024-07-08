@@ -45,7 +45,7 @@
             <div class="mb-3">
                 <label class="form-label">Jumlah</label>
                 <input type="number" name="jumlah" class="form-control @error('jumlah') is-invlaid @enderror"
-                    placeholder="Nama Barang">
+                    placeholder="Jumlah">
                 @error('jumlah')
                 <span class="invalid-feedback" role="alert">
                     <strong>{{ $message }}</strong>

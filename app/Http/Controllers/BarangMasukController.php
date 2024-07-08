@@ -26,21 +26,22 @@ class BarangMasukController extends Controller
     public function store(Request $request)
     {
         $this->validate($request, [
-            'id_barang' => 'required',
+            'id_barangs' => 'required',
             'tanggal_masuk' => 'required',
             'jumlah' => 'required',
             'keterangan' => 'required',
         ]);
 
         $barang_masuk = new Barang_Masuk();
-        $barang_masuk->id_barang = $request->id_barang;
+        $barang_masuk->id_barangs = $request->id_barangs;
         $barang_masuk->tanggal_masuk = $request->tanggal_masuk;
         $barang_masuk->jumlah = $request->jumlah;
         $barang_masuk->keterangan = $request->keterangan;
 
-        $barang = Barang::find($request->id_barang);
-        $barang->stok += $request->jumlah;
+        $barang = Barang::find($request->id_barangs);
+        $barang->jumlah += $request->jumlah;
         $barang->save();
+        $barang_masuk->save();
         Alert::success('Success', 'Data Berhasil di Simpan')->autoClose(5000);
         return redirect()->route('barang_masuk.index');
     }
@@ -69,18 +70,20 @@ class BarangMasukController extends Controller
     public function update(Request $request, Barang_Masuk $barang_Masuk)
     {
         $this->validate($request, [
+            'id_barangs' => 'required',
             'tanggal_masuk' => 'required',
             'jumlah' => 'required',
             'keterangan' => 'required',
         ]);
 
         $barang_masuk = Barang_Masuk::findOrFail($id);
+        $barang_masuk->id_barangs = $request->id_barangs;
         $barang_masuk->tanggal_masuk = $request->tanggal_masuk;
         $barang_masuk->jumlah = $request->jumlah;
         $barang_masuk->keterangan = $request->keterangan;
 
-        $barang = Barang::find($request->id_barang);
-        $barang->stok += $request->jumlah;
+        $barang = Barang::find($request->id_barangs);
+        $barang->jumlah += $request->jumlah;
         $barang->save();
         Alert::success('Success', 'Data Berhasil di Edit')->autoClose(5000);
         return redirect()->route('barang_masuk.index');

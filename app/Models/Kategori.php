@@ -9,13 +9,12 @@ class Kategori extends Model
 {
     use HasFactory;
 
-    public $fillable = ['name'];
-    public $visible = ['name'];
+    public $fillable = ['nama','jumlah'];
+    public $visible = ['nama','jumlah'];
     public $timestamps = true;
 
     public function barang()
     {
         return $this->hasMany(Barang::class, 'id_kategori');
-        return $this->BelongsTo(Barang::class, 'jumlah');
     }
 }

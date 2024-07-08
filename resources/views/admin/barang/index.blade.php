@@ -41,7 +41,7 @@
                 </thead>
                 <tbody>
                     @php $i = 1; @endphp
-                    @foreach ($barangs as $data)
+                    @foreach ($barang as $data)
                     <tr>
                         <td>{{$i++}}</td>
                         <td>{{$data->nama_barang}}</td>

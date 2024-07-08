@@ -45,16 +45,6 @@
             @enderror
             </div>
             <div class="mb-3">
-                <label for="" class="form-label">Kategori</label>
-                <input type="text" name="id_kategori" class="form-control @error('id_kategori') is-invlaid @enderror"
-                placeholder="Kategori" value="{{$barang->kategori->name}}">
-            @error('id_kategori')
-            <span class="invalid-feedback" role="alert">
-                <strong>{{ $message }}</strong>
-            </span>
-            @enderror
-            </div>
-            <div class="mb-3">
                 <button class="btn btn-sm btn-primary" type="submit">Submit</button>
                 <button class="btn btn-sm btn-warning" type="reset">Cancel</button>
             </div>

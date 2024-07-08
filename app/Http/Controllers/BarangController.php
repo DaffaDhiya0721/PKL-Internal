@@ -12,9 +12,9 @@ class BarangController extends Controller
 
     public function index()
     {
-        $barangs = Barang::latest()->get();
+        $barang = Barang::latest()->get();
         confirmDelete("Delete", "Apa Kamu Yakin?");
-        return view('admin.barang.index', compact('barangs'));
+        return view('admin.barang.index', compact('barang'));
     }
 
     /**
@@ -66,13 +66,11 @@ class BarangController extends Controller
         $this->validate($request, [
             'nama_barang' => 'required',
             'jumlah' => 'required|nullable',
-            'id_kategori' => 'required',
         ]);
 
         $barang = Barang::findOrFail($id);
         $barang->nama_barang = $request->nama_barang;
         $barang->jumlah = $request->jumlah;
-        $barang->id_kategori = $request->id_kategori;
         $barang->save();
         Alert::success('Success', 'Data Berhasil di Edit')->autoClose(5000);
         return redirect()->route('barang.index');

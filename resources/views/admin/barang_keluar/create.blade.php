@@ -34,13 +34,13 @@
             @csrf
             <div class="mb-3">
                 <label class="form-label">Nama Barang</label>
-                <select name="id_barang" class="form-control @error('id_barang') is-invalid @enderror">
+                <select name="id_barangs" class="form-control @error('id_barangs') is-invalid @enderror">
                     <option value="">Pilih Barang</option>
                     @foreach ($barang as $data)
                     <option class="text-white" value="{{$data->id}}">{{$data->nama_barang}}</option>
                     @endforeach
                 </select>
-                @error('id_barang')
+                @error('id_barangs')
                 <span class="invalid-feedback" role="alert">
                     <strong>{{ $message }}</strong>
                 </span>
