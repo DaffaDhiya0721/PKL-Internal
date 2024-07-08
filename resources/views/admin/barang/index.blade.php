@@ -18,13 +18,13 @@
     </div>
     <div class="ms-auto">
         <div class="btn-group">
-            <a href="{{route('user.create')}}" class="btn btn-primary">Tambah Data</a>
+            <a href="{{route('barang.create')}}" class="btn btn-primary">Tambah Data</a>
         </div>
     </div>
 </div>
 <!--end breadcrumb-->
 
-<h6 class="mb-0 text-uppercase">Users</h6>
+<h6 class="mb-0 text-uppercase">Barang</h6>
 <hr>
 <div class="card">
     <div class="card-body">
@@ -34,40 +34,30 @@
                     <tr>
                         <th>No</th>
                         <th>Nama</th>
-                        <th>Email</th>
-                        <th>Role</th>
+                        <th>Jumlah</th>
+                        <th>Kategori</th>
                         <th>Aksi</th>
                     </tr>
                 </thead>
                 <tbody>
                     @php $i = 1; @endphp
-                    @foreach ($users as $data)
-                    @if($loop->first)
+                    @foreach ($barangs as $data)
                     <tr>
                         <td>{{$i++}}</td>
-                        <td>{{$data->name}}</td>
-                        <td>{{$data->email}}</td>
-                        <td>{{$data->isAdmin == 1 ? 'Admin' : 'User'}}</td>
-                        <td><button class="btn btn-sm btn-danger" disabled>Tidak Bisa Delete</button></td>
-                    </tr>
-                    @else
-                    <tr>
-                        <td>{{$i++}}</td>
-                        <td>{{$data->name}}</td>
-                        <td>{{$data->email}}</td>
-                        <td>{{$data->isAdmin == 1 ? 'Admin' : 'User'}}</td>
+                        <td>{{$data->nama_barang}}</td>
+                        <td>{{$data->jumlah}}</td>
+                        <td>{{$data->kategori->nama}}</td>
                         <td>
-                            <form action="{{route('user.destroy', $data->id)}}" method="post">
+                            <form action="{{route('barang.destroy', $data->id)}}" method="post">
                                 @csrf
                                 @method('DELETE')
-                            <a href="{{route('user.edit',$data->id)}}" class="btn btn-sm btn-warning">
+                            <a href="{{route('barang.edit',$data->id)}}" class="btn btn-sm btn-warning">
                                 Edit
                             </a> |
-                            <a href="{{route('user.destroy', $data->id) }}" class="btn btn-sm btn-danger" data-confirm-delete="true">Delete</a>
+                            <a href="{{route('barang.destroy', $data->id) }}" class="btn btn-sm btn-danger" data-confirm-delete="true">Delete</a>
                             </form>
                         </td>
                     </tr>
-                    @endif
                     @endforeach
                 </tbody>
             </table>

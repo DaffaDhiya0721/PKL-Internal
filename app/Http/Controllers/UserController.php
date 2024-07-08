@@ -12,7 +12,7 @@ class UserController extends Controller
     public function index()
     {
         $users = User::all();
-        confirmDelete("delete", "Are You Sure?");
+        confirmDelete("Delete", "Apa Kamu Yakin?");
         return view('admin.user.index', compact('users'));
     }
 
@@ -75,7 +75,7 @@ class UserController extends Controller
         $user->password = bcrypt($request->password);
         $user->isAdmin = $request->isAdmin;
         $user->save();
-        Alert::success('Success', 'Data Edited Successfully')->autoClose(5000);
+        Alert::success('Success', 'Data Berhasil di Edit')->autoClose(5000);
         return redirect()->route('user.index');
     }
 
@@ -86,7 +86,7 @@ class UserController extends Controller
     {
         $user = User::findOrFail($id);
         $user->delete();
-        toast('Data delete successfully', 'success')->autoClose(5000);
+        toast('Data Berhasil di Hapus', 'Success')->autoClose(5000);
         return redirect()->route('user.index');
     }
 }
