@@ -35,6 +35,16 @@
             @enderror
             </div>
             <div class="mb-3">
+                <label for="" class="form-label">Jumlah</label>
+                <input type="number" name="jumlah" class="form-control @error('jumlah') is-invlaid @enderror"
+                placeholder="jumlah" value="{{$kategori->jumlah}}">
+            @error('jumlah')
+            <span class="invalid-feedback" role="alert">
+                <strong>{{ $message }}</strong>
+            </span>
+            @enderror
+            </div>
+            <div class="mb-3">
                 <button class="btn btn-sm btn-primary" type="submit">Submit</button>
                 <button class="btn btn-sm btn-warning" type="reset">Cancel</button>
             </div>

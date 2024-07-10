@@ -36,7 +36,7 @@ class BarangKeluarController extends Controller
         $this->validate($request, [
             'id_barangs' => 'required',
             'tanggal_keluar' => 'required',
-            'jumlah' => 'required',
+            'jumlah' => 'required|nullable',
             'keterangan' => 'required',
         ]);
 
@@ -65,7 +65,7 @@ class BarangKeluarController extends Controller
     /**
      * Show the form for editing the specified resource.
      */
-    public function edit(Barang_Keluar $barang_Keluar)
+    public function edit(string $id)
     {
         $barang_keluar = Barang_Keluar::findOrFail($id);
         $barang = Barang::all();
@@ -75,25 +75,18 @@ class BarangKeluarController extends Controller
     /**
      * Update the specified resource in storage.
      */
-    public function update(Request $request, Barang_Keluar $barang_Keluar)
+    public function update(Request $request, string $id)
     {
         $this->validate($request, [
-            'id_barangs' => 'required',
             'tanggal_keluar' => 'required',
-            'jumlah' => 'required',
+            'jumlah' => 'required|nullable',
             'keterangan' => 'required',
         ]);
-
         $barang_keluar = Barang_Keluar::findOrFail($id);
-        $barang_keluar->id_barangs = $request->id_barangs;
         $barang_keluar->tanggal_keluar = $request->tanggal_keluar;
         $barang_keluar->jumlah = $request->jumlah;
         $barang_keluar->keterangan = $request->keterangan;
-
-        $barang = Barang::find($request->id_barangs);
-        $barang->jumlah -= $request->jumlah;
-        $barang->save();
-        $barang_Keluar->save();
+        $barang_keluar->save();
         Alert::success('Success', 'Data Berhasil di Edit')->autoClose(5000);
         return redirect()->route('barang_keluar.index');
     }

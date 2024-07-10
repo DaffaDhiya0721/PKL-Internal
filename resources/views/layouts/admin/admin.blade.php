@@ -1,10 +1,10 @@
 <!doctype html>
-<html lang="en" data-bs-theme="blue-theme">
+<html lang="en" data-bs-theme="semi-dark">
 
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <title>Maxton | Bootstrap 5 Admin Dashboard Template</title>
+  <title>Inventory SMK Assalaam Bandung</title>
   <!--favicon-->
   <link rel="icon" href="{{asset('assets/images/favicon-32x32.png')}}" type="image/png">
   <!-- loader-->
@@ -191,7 +191,7 @@
     </div>
   </div>
   <!--end cart-->
-  
+
   <!--bootstrap js-->
   <script src="{{asset('assets/js/bootstrap.bundle.min.js')}}"></script>
 

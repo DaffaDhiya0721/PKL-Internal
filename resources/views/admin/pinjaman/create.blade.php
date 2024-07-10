@@ -10,7 +10,7 @@
 @section('content')
 <!--breadcrumb-->
 <div class="page-breadcrumb d-none d-sm-flex align-items-center mb-3">
-    <div class="breadcrumb-title pe-3">Dashboard</div>
+    <div class="breadcrumb-title pe-3">Inventory</div>
     <div class="ps-3">
         <nav aria-label="breadcrumb">
             <ol class="breadcrumb mb-0 p-0">
@@ -33,9 +33,23 @@
         <form action="{{route('pinjaman.store')}}" method="post">
             @csrf
             <div class="mb-3">
+                <label class="form-label">Nama Barang</label>
+                <select name="id_barangs" class="form-control @error('id_barangs') is-invalid @enderror">
+                    <option value="">Pilih Barang</option>
+                    @foreach ($barang as $data)
+                    <option class="text-black" value="{{$data->id}}">{{$data->nama_barang}}</option>
+                    @endforeach
+                </select>
+                @error('id_barangs')
+                <span class="invalid-feedback" role="alert">
+                    <strong>{{ $message }}</strong>
+                </span>
+                @enderror
+            </div>
+            <div class="mb-3">
                 <label class="form-label">Nama Peminjam</label>
                 <input type="text" name="nama_peminjam" class="form-control @error('nama_peminjam') is-invlaid @enderror"
-                    placeholder="nama_peminjam">
+                    placeholder="Nama Peminjam">
                 @error('nama_peminjam')
                 <span class="invalid-feedback" role="alert">
                     <strong>{{ $message }}</strong>
@@ -45,7 +59,7 @@
             <div class="mb-3">
                 <label class="form-label">Tanggal Pinjam</label>
                 <input type="date" name="tanggal_pinjam" class="form-control @error('tanggal_pinjam') is-invlaid @enderror"
-                    placeholder="tanggal_pinjam">
+                    placeholder="Tanggal Pinjam">
                 @error('tanggal_pinjam')
                 <span class="invalid-feedback" role="alert">
                     <strong>{{ $message }}</strong>
@@ -55,7 +69,7 @@
             <div class="mb-3">
                 <label class="form-label">Jumlah</label>
                 <input type="number" name="jumlah" class="form-control @error('jumlah') is-invlaid @enderror"
-                    placeholder="jumlah">
+                    placeholder="Jumlah">
                 @error('jumlah')
                 <span class="invalid-feedback" role="alert">
                     <strong>{{ $message }}</strong>
@@ -65,7 +79,7 @@
             <div class="mb-3">
                 <label class="form-label">Status</label>
                 <input type="text" name="status" class="form-control @error('status') is-invlaid @enderror"
-                    placeholder="status">
+                    placeholder="Status">
                 @error('status')
                 <span class="invalid-feedback" role="alert">
                     <strong>{{ $message }}</strong>

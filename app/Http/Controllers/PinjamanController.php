@@ -24,7 +24,8 @@ class PinjamanController extends Controller
      */
     public function create()
     {
-        return view('admin.pinjaman.create');
+        $barang = Barang::all();
+        return view('admin.pinjaman.create', compact('barang'));
     }
 
     /**
@@ -33,17 +34,23 @@ class PinjamanController extends Controller
     public function store(Request $request)
     {
         $this->validate($request, [
+            'id_barangs' => 'required',
             'nama_peminjam' => 'required',
             'tanggal_pinjam' => 'required',
-            'jumlah' => 'required',
+            'jumlah' => 'required|nullable',
             'status' => 'required',
         ]);
 
         $pinjaman = new Pinjaman();
+        $pinjaman->id_barangs = $request->id_barangs;
         $pinjaman->nama_peminjam = $request->nama_peminjam;
         $pinjaman->tanggal_pinjam = $request->tanggal_pinjam;
         $pinjaman->jumlah = $request->jumlah;
         $pinjaman->status = $request->status;
+
+        $barang = Barang::find($request->id_barangs);
+        $barang->jumlah -= $request->jumlah;
+        $barang->save();
         $pinjaman->save();
         Alert::success('Success', 'Data Berhasil di Simpan')->autoClose(5000);
         return redirect()->route('pinjaman.index');
@@ -60,21 +67,22 @@ class PinjamanController extends Controller
     /**
      * Show the form for editing the specified resource.
      */
-    public function edit(Pinjaman $pinjaman)
+    public function edit(string $id)
     {
         $pinjaman = Pinjaman::findOrFail($id);
-        return view('admin.pinjaman.edit', compact('pinjaman'));
+        $barang = Barang::all();
+        return view('admin.pinjaman.edit', compact('pinjaman', 'barang'));
     }
 
     /**
      * Update the specified resource in storage.
      */
-    public function update(Request $request, Pinjaman $pinjaman)
+    public function update(Request $request, string $id)
     {
         $this->validate($request, [
             'nama_peminjam' => 'required',
             'tanggal_pinjam' => 'required',
-            'jumlah' => 'required',
+            'jumlah' => 'required|nullable',
             'status' => 'required',
         ]);
 

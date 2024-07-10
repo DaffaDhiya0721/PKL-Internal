@@ -6,7 +6,7 @@
 @section('content')
 <!--breadcrumb-->
 <div class="page-breadcrumb d-none d-sm-flex align-items-center mb-3">
-    <div class="breadcrumb-title pe-3">Dashboard</div>
+    <div class="breadcrumb-title pe-3">Inventory</div>
     <div class="ps-3">
         <nav aria-label="breadcrumb">
             <ol class="breadcrumb mb-0 p-0">
@@ -29,7 +29,7 @@
 <div class="card">
     <div class="card-body">
         <div class="table-responsive">
-            <table id="example" class="table table-striped table-bordered" style="width:100%">
+            <table id="example" class="table table-striped table-bordered">
                 <thead>
                     <tr>
                         <th>No</th>
@@ -69,11 +69,17 @@
 @endsection
 
 @push('scripts')
+<script src="../assets/js/bootstrap.bundle.min.js"></script>
+<script src="../assets/js/jquery.min.js"></script>
+<script src="../assets/plugins/perfect-scrollbar/js/perfect-scrollbar.js"></script>
+  <script src="../assets/plugins/metismenu/metisMenu.min.js"></script>
 <script src="../assets/plugins/datatable/js/jquery.dataTables.min.js"></script>
 	<script src="../assets/plugins/datatable/js/dataTables.bootstrap5.min.js"></script>
     <script>
-	    $(document).ready(function() {
+        $(document).ready(function() {
 			$('#example').DataTable();
 		  });
 	</script>
+    <script src="assets/plugins/simplebar/js/simplebar.min.js"></script>
+    <script src="assets/js/main.js"></script>
 @endpush

@@ -4,7 +4,7 @@
         <a href="https://smkassalaambandung.sch.id/"><img src="https://pklsmk.com/wp-content/uploads/2022/02/5a1e12ade5d4d.png" class="logo-img"></a>
       </div>
       <div class="logo-name flex-grow-1">
-        <h5 class="mb-0">INVENTARIS</h5>
+        <h5 class="mb-0">INVENTORY</h5>
       </div>
       <div class="sidebar-close">
         <span class="material-icons-outlined">close</span>
@@ -20,13 +20,6 @@
               <div class="menu-title">Home</div>
             </a>
         </li>
-        <li>
-            <a href="{{route('user.index')}}">
-                <div class="parent-icon"><i class="material-icons-outlined">person</i>
-                </div>
-                <div class="menu-title">Users</div>
-              </a>
-            </li>
             <li>
                 <a href="{{route('barang.index')}}">
                   <div class="parent-icon"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="currentColor" class="bi bi-box" viewBox="0 0 16 16">

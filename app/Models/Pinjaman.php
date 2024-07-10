@@ -9,14 +9,15 @@ class Pinjaman extends Model
 {
     use HasFactory;
 
-    public $fillable = ['nama_peminjam', 'tanggal_pinjam', 'jumlah', 'status'];
-    public $visible = ['nama_peminjam', 'tanggal_pinjam', 'jumlah', 'status'];
+    public $fillable = ['id_barangs','nama_peminjam', 'tanggal_pinjam', 'jumlah', 'status'];
+    public $visible = ['id_barangs','nama_peminjam', 'tanggal_pinjam', 'jumlah', 'status'];
     public $timestamps = true;
 
     public function barang()
     {
         return $this->belongsTo(Barang::class, 'id_barangs');
     }
+    
 }
 
 

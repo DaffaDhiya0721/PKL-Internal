@@ -37,7 +37,7 @@
                 <select name="id_barangs" class="form-control @error('id_barangs') is-invalid @enderror">
                     <option value="">Pilih Barang</option>
                     @foreach ($barang as $data)
-                    <option class="text-white" value="{{$data->id}}">{{$data->nama_barang}}</option>
+                    <option class="text-black" value="{{$data->id}}">{{$data->nama_barang}}</option>
                     @endforeach
                 </select>
                 @error('id_barangs')
