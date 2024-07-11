@@ -2,6 +2,13 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\User;
+use App\Models\Barang;
+use App\Models\Barang_Masuk;
+use App\Models\Barang_Keluar;
+use App\Models\Kategori;
+use App\Models\Pinjaman;
+use App\Models\Pengembalian;
 use Illuminate\Http\Request;
 use Auth;
 class HomeController extends Controller
@@ -23,11 +30,12 @@ class HomeController extends Controller
      */
     public function index()
     {
-        $user = Auth::user();
-        if ($user->isAdmin == 1) {
-            return view('admin.index');
-        } else {
-            return view('layouts.index');
-        }
+            $barang = Barang::count();
+            $barang_masuk = Barang_Masuk::count();
+            $barang_keluar = Barang_Keluar::count();
+            $kategori = Kategori::count();
+            $pinjaman = Pinjaman::count();
+            $pengembalian = Pengembalian::count();
+            return view('home', compact('barang', 'barang_masuk', 'barang_keluar', 'kategori', 'pinjaman', 'pengembalian'));
     }
 }
