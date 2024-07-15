@@ -67,6 +67,16 @@
                 @enderror
             </div>
             <div class="mb-3">
+                <label class="form-label">Tanggal Kembali</label>
+                <input type="date" name="tanggal_pengembalian" class="form-control @error('tanggal_pengembalian') is-invlaid @enderror"
+                    placeholder="Tanggal pengembalian">
+                @error('tanggal_pengembalian')
+                <span class="invalid-feedback" role="alert">
+                    <strong>{{ $message }}</strong>
+                </span>
+                @enderror
+            </div>
+            <div class="mb-3">
                 <label class="form-label">Jumlah</label>
                 <input type="number" name="jumlah" class="form-control @error('jumlah') is-invlaid @enderror"
                     placeholder="Jumlah">

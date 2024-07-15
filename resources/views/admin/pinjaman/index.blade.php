@@ -1,6 +1,8 @@
 @extends('layouts.admin.admin')
 @section('styles')
-<link href="../assets/plugins/datatable/css/dataTables.bootstrap5.min.css" rel="stylesheet" />
+<link rel="stylesheet" href="https://cdn.datatables.net/2.0.8/css/dataTables.bootstrap5.css">
+<link rel="stylesheet" href="https://cdn.datatables.net/2.0.8/css/dataTables.dataTables.css">
+<link rel="stylesheet" href="https://cdn.datatables.net/buttons/3.0.2/css/buttons.dataTables.css">
 @endsection
 
 @section('content')
@@ -36,7 +38,8 @@
                         <th>Nama Barang</th>
                         <th>Nama Peminjam</th>
                         <th>Tanggal Pinjam</th>
-                        <th>Jumlah</th>
+                        <th>Tanggal Kembali</th>
+                        <th>Jumlah Pinjam</th>
                         <th>Status</th>
                         <th>Aksi</th>
                     </tr>
@@ -49,6 +52,7 @@
                         <td>{{$data->barang->nama_barang}}</td>
                         <td>{{$data->nama_peminjam}}</td>
                         <td>{{$data->tanggal_pinjam}}</td>
+                        <td>{{$data->tanggal_pengembalian}}</td>
                         <td>{{$data->jumlah}}</td>
                         <td>{{$data->status}}</td>
                         <td>
@@ -71,11 +75,25 @@
 @endsection
 
 @push('scripts')
-<script src="../assets/plugins/datatable/js/jquery.dataTables.min.js"></script>
-	<script src="../assets/plugins/datatable/js/dataTables.bootstrap5.min.js"></script>
+<script src="https://cdn.datatables.net/2.0.8/js/dataTables.js"></script>
+    <script src="https://cdn.datatables.net/2.0.8/js/dataTables.bootstrap5.js"></script>
+
+    <script src="https://code.jquery.com/jquery-3.7.1.min.js"></script>
+    <script src="https://cdn.datatables.net/2.0.8/js/dataTables.js"></script>
+    <script src="https://cdn.datatables.net/buttons/3.0.2/js/dataTables.buttons.js"></script>
+    <script src="https://cdn.datatables.net/buttons/3.0.2/js/buttons.dataTables.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jszip/3.10.1/jszip.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/pdfmake/0.2.7/pdfmake.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/pdfmake/0.2.7/vfs_fonts.js"></script>
+    <script src="https://cdn.datatables.net/buttons/3.0.2/js/buttons.html5.min.js"></script>
+    <script src="https://cdn.datatables.net/buttons/3.0.2/js/buttons.print.min.js"></script>
     <script>
-	    $(document).ready(function() {
-			$('#example').DataTable();
-		  });
-	</script>
+        new DataTable('#example', {
+            layout: {
+                topStart: {
+                    buttons: ['pdf', 'excel']
+                }
+            }
+        });
+    </script>
 @endpush

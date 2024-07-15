@@ -1,5 +1,11 @@
 <?php
 
+use App\Http\Controllers\BarangController;
+use App\Http\Controllers\BarangKeluarController;
+use App\Http\Controllers\PengembalianController;
+use App\Http\Controllers\PinjamanController;
+use App\Http\Controllers\LaporanController;
+use App\Http\Controllers\BarangMasukController;
 use App\Http\Middleware\IsAdmin;
 use Illuminate\Support\Facades\Route;
 
@@ -24,4 +30,8 @@ Route::group(['prefix' => 'admin', 'middleware' => 'auth'], function () {
     Route::resource('barang_keluar', App\Http\Controllers\BarangKeluarController::class);
     Route::resource('pinjaman', App\Http\Controllers\PinjamanController::class);
     Route::resource('pengembalian', App\Http\Controllers\PengembalianController::class);
+    Route::resource('laporan', App\Http\Controllers\LaporanController::class);
 });
+
+Route::post('laporan', [LaporanController::class, 'report'])->name('report');
+Route::post('print-laporan', [LaporanController::class, 'printReport'])->name('printReport');

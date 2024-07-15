@@ -5,7 +5,10 @@ namespace App\Http\Controllers;
 use App\Models\Barang;
 use App\Models\Barang_Masuk;
 use Illuminate\Http\Request;
+use Carbon\Carbon;
 use Alert;
+
+Carbon::setLocale('id');
 
 class BarangMasukController extends Controller
 {
@@ -25,24 +28,18 @@ class BarangMasukController extends Controller
 
     public function store(Request $request)
     {
-        $this->validate($request, [
-            'id_barangs' => 'required',
-            'tanggal_masuk' => 'required',
-            'jumlah' => 'required|nullable',
-            'keterangan' => 'required',
-        ]);
-
         $barang_masuk = new Barang_Masuk();
         $barang_masuk->id_barangs = $request->id_barangs;
         $barang_masuk->tanggal_masuk = $request->tanggal_masuk;
         $barang_masuk->jumlah = $request->jumlah;
         $barang_masuk->keterangan = $request->keterangan;
 
-        $barang = Barang::find($request->id_barangs);
+        $barang = Barang::findOrFail($request->id_barangs);
         $barang->jumlah += $request->jumlah;
         $barang->save();
+
         $barang_masuk->save();
-        Alert::success('Success', 'Data Berhasil di Simpan')->autoClose(5000);
+        Alert::success('Success', 'Data Berhasil Ditambahkan')->autoClose(1500);
         return redirect()->route('barang_masuk.index');
     }
 
@@ -57,7 +54,7 @@ class BarangMasukController extends Controller
     /**
      * Show the form for editing the specified resource.
      */
-    public function edit(string $id)
+    public function edit($id)
     {
         $barang_masuk = Barang_Masuk::findOrFail($id);
         $barang = Barang::all();
@@ -67,17 +64,18 @@ class BarangMasukController extends Controller
     /**
      * Update the specified resource in storage.
      */
-    public function update(Request $request, string $id)
+    public function update(Request $request, $id)
     {
-        $this->validate($request, [
-            'tanggal_masuk' => 'required',
-            'jumlah' => 'required|nullable',
-            'keterangan' => 'required',
-        ]);
         $barang_masuk = Barang_Masuk::findOrFail($id);
+        $barang = Barang::findOrFail($barang_masuk->id_barangs);
+        $barang->jumlah -= $barang_masuk->jumlah;
+        $barang->jumlah += $request->jumlah;
+        $barang->save();
         $barang_masuk->tanggal_masuk = $request->tanggal_masuk;
         $barang_masuk->jumlah = $request->jumlah;
         $barang_masuk->keterangan = $request->keterangan;
+        $barang_masuk->id_barangs = $request->id_barangs;
+
         $barang_masuk->save();
         Alert::success('Success', 'Data Berhasil di Edit')->autoClose(5000);
         return redirect()->route('barang_masuk.index');

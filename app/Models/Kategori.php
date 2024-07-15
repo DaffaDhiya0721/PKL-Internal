@@ -9,8 +9,8 @@ class Kategori extends Model
 {
     use HasFactory;
 
-    public $fillable = ['nama','jumlah'];
-    public $visible = ['nama','jumlah'];
+    public $fillable = ['nama'];
+    public $visible = ['nama'];
     public $timestamps = true;
 
     public function barang()

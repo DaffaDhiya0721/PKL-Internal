@@ -14,12 +14,14 @@ return new class extends Migration
         Schema::create('pengembalians', function (Blueprint $table) {
             $table->id();
             $table->unsignedBigInteger('id_barangs');
+            $table->unsignedBigInteger('id_pinjaman');
             $table->string('nama_peminjam');
             $table->date('tanggal_pengembalian');
-            $table->integer('jumlah')->nullable();
+            $table->unsignedBigInteger('jumlah');
             $table->string('status');
-            $table->foreign('id_barangs')->references('id')->on('barangs')->onDelete('cascade');
             $table->timestamps();
+            $table->foreign('id_barangs')->references('id')->on('barangs')->onDelete('cascade');
+            $table->foreign('id_pinjaman')->references('id')->on('pinjamen')->onDelete('cascade');
         });
     }
 

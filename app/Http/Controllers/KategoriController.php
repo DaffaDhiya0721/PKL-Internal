@@ -26,12 +26,10 @@ class KategoriController extends Controller
     {
         $this->validate($request, [
             'nama' => 'required',
-            'jumlah' => 'required|nullable',
         ]);
 
         $kategori = new Kategori();
         $kategori->nama = $request->nama;
-        $kategori->jumlah = $request->jumlah;
         $kategori->save();
         Alert::success('Success', 'Data Berhasil di Simpan')->autoClose(5000);
         return redirect()->route('kategori.index');
@@ -61,12 +59,10 @@ class KategoriController extends Controller
     {
         $this->validate($request, [
             'nama' => 'required',
-            'jumlah' => 'required|nullable',
         ]);
 
         $kategori = Kategori::findOrFail($id);
         $kategori->nama = $request->nama;
-        $kategori->jumlah = $request->jumlah;
         $kategori->save();
         Alert::success('Success', 'Data Berhasil di Edit')->autoClose(5000);
         return redirect()->route('kategori.index');

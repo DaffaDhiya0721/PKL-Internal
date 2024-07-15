@@ -5,7 +5,10 @@ namespace App\Http\Controllers;
 use App\Models\Barang;
 use App\Models\Pinjaman;
 use Illuminate\Http\Request;
+use Carbon\Carbon;
 use Alert;
+
+Carbon::setLocale('id');
 
 class PinjamanController extends Controller
 {
@@ -15,7 +18,16 @@ class PinjamanController extends Controller
     public function index()
     {
         $pinjaman = Pinjaman::all();
-        confirmDelete("Delete", "Apa Kamu Yakin?");
+        confirmDelete('delete', 'Apakah Anda Yakin?');
+
+        foreach ($pinjaman as $data) {
+            $data->formatted_tanggal_pinjam = Carbon::parse($data->tanggal_pinjam)->translatedFormat('l, d F Y');
+        }
+
+        foreach ($pinjaman as $data) {
+            $data->formatted_tanggal_pengembalian = Carbon::parse($data->tanggal_pengembalian)->translatedFormat('l, d F Y');
+        }
+
         return view('admin.pinjaman.index', compact('pinjaman'));
     }
 
@@ -33,24 +45,23 @@ class PinjamanController extends Controller
      */
     public function store(Request $request)
     {
-        $this->validate($request, [
-            'id_barangs' => 'required',
-            'nama_peminjam' => 'required',
-            'tanggal_pinjam' => 'required',
-            'jumlah' => 'required|nullable',
-            'status' => 'required',
-        ]);
-
         $pinjaman = new Pinjaman();
         $pinjaman->id_barangs = $request->id_barangs;
         $pinjaman->nama_peminjam = $request->nama_peminjam;
         $pinjaman->tanggal_pinjam = $request->tanggal_pinjam;
+        $pinjaman->tanggal_pengembalian = $request->tanggal_pengembalian;
         $pinjaman->jumlah = $request->jumlah;
-        $pinjaman->status = $request->status;
+        $pinjaman->status = "Sedang Dipinjam";
 
-        $barang = Barang::find($request->id_barangs);
-        $barang->jumlah -= $request->jumlah;
-        $barang->save();
+        $barang = Barang::findOrFail($request->id_barangs);
+        if ($barang->jumlah < $request->jumlah) {
+            Alert::warning('Warning', 'Jumlah Tidak Cukup')->autoClose(5000);
+            return redirect()->route('pinjaman.index');
+        } else {
+            $barang->jumlah -= $request->jumlah;
+            $barang->save();
+        }
+
         $pinjaman->save();
         Alert::success('Success', 'Data Berhasil di Simpan')->autoClose(5000);
         return redirect()->route('pinjaman.index');
@@ -77,23 +88,31 @@ class PinjamanController extends Controller
     /**
      * Update the specified resource in storage.
      */
-    public function update(Request $request, string $id)
+    public function update(Request $request, $id)
     {
-        $this->validate($request, [
-            'nama_peminjam' => 'required',
-            'tanggal_pinjam' => 'required',
-            'jumlah' => 'required|nullable',
-            'status' => 'required',
-        ]);
-
         $pinjaman = Pinjaman::findOrFail($id);
-        $pinjaman->nama_peminjam = $request->nama_peminjam;
-        $pinjaman->tanggal_pinjam = $request->tanggal_pinjam;
-        $pinjaman->jumlah = $request->jumlah;
-        $pinjaman->status = $request->status;
+        $barang = Barang::findOrFail($pinjaman->id_barangs);
+
+        $pinjaman->update($request->all());
+
+        if ($barang->jumlah < $request->jumlah) {
+            Alert::warning('Warning', 'Jumlah Tidak Cukup')->autoClose(5000);
+            return redirect()->route('pinjaman.index');
+        } else {
+            $barang->jumlah += $pinjaman->jumlah;
+            $barang->jumlah -= $request->jumlah;
+            $barang->save();
+        }
+
+        if ($request->status == "Sudah Dikembalikan") {
+            $barang->jumlah += $pinjaman->jumlah;
+            $barang->save();
+        }
+
         $pinjaman->save();
-        Alert::success('Success', 'Data Berhasil di Simpan')->autoClose(5000);
+        Alert::success('Success', 'Data Berhasil Diubah')->autoclose(5000);
         return redirect()->route('pinjaman.index');
+
     }
 
     /**

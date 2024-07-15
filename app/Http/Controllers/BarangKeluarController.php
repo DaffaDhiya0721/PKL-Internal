@@ -5,7 +5,10 @@ namespace App\Http\Controllers;
 use App\Models\Barang;
 use App\Models\Barang_Keluar;
 use Illuminate\Http\Request;
+use Carbon\Carbon;
 use Alert;
+
+Carbon::setLocale('id');
 
 class BarangKeluarController extends Controller
 {
@@ -33,22 +36,21 @@ class BarangKeluarController extends Controller
      */
     public function store(Request $request)
     {
-        $this->validate($request, [
-            'id_barangs' => 'required',
-            'tanggal_keluar' => 'required',
-            'jumlah' => 'required|nullable',
-            'keterangan' => 'required',
-        ]);
-
         $barang_keluar = new Barang_Keluar();
         $barang_keluar->id_barangs = $request->id_barangs;
         $barang_keluar->tanggal_keluar = $request->tanggal_keluar;
         $barang_keluar->jumlah = $request->jumlah;
         $barang_keluar->keterangan = $request->keterangan;
 
-        $barang = Barang::find($request->id_barangs);
-        $barang->jumlah -= $request->jumlah;
-        $barang->save();
+        $barang = Barang::findOrFail($request->id_barangs);
+        if ($barang->jumlah < $request->jumlah) {
+            Alert::warning('Warning', 'Stok Tidak Cukup')->autoClose(5000);
+            return redirect()->route('barang_keluar.index');
+        } else {
+            $barang->jumlah -= $request->jumlah;
+            $barang->save();
+        }
+
         $barang_keluar->save();
         Alert::success('Success', 'Data Berhasil di Simpan')->autoClose(5000);
         return redirect()->route('barang_keluar.index');
@@ -65,7 +67,7 @@ class BarangKeluarController extends Controller
     /**
      * Show the form for editing the specified resource.
      */
-    public function edit(string $id)
+    public function edit($id)
     {
         $barang_keluar = Barang_Keluar::findOrFail($id);
         $barang = Barang::all();
@@ -75,19 +77,22 @@ class BarangKeluarController extends Controller
     /**
      * Update the specified resource in storage.
      */
-    public function update(Request $request, string $id)
+    public function update(Request $request, $id)
     {
-        $this->validate($request, [
-            'tanggal_keluar' => 'required',
-            'jumlah' => 'required|nullable',
-            'keterangan' => 'required',
-        ]);
         $barang_keluar = Barang_Keluar::findOrFail($id);
-        $barang_keluar->tanggal_keluar = $request->tanggal_keluar;
-        $barang_keluar->jumlah = $request->jumlah;
-        $barang_keluar->keterangan = $request->keterangan;
+        $barang = Barang::findOrFail($barang_keluar->id_barangs);
+
+        if ($barang->jumlah < $request->jumlah) {
+            Alert::warning('Warning', 'Stok Tidak Cukup')->autoClose(5000);
+            return redirect()->route('barang_keluar.index');
+        } else {
+            $barang->jumlah += $barang_keluar->jumlah;
+            $barang->jumlah -= $request->jumlah;
+            $barang->save();
+        }
+        $barang_keluar->update($request->all());
         $barang_keluar->save();
-        Alert::success('Success', 'Data Berhasil di Edit')->autoClose(5000);
+        Alert::success('success', 'Data Berhasil Diubah')->autoClose(5000);
         return redirect()->route('barang_keluar.index');
     }
 

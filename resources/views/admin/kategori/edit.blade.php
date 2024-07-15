@@ -2,7 +2,7 @@
 @section('content')
 <!--breadcrumb-->
 <div class="page-breadcrumb d-none d-sm-flex align-items-center mb-3">
-    <div class="breadcrumb-title pe-3">Dashboard</div>
+    <div class="breadcrumb-title pe-3">Inventory</div>
     <div class="ps-3">
         <nav aria-label="breadcrumb">
             <ol class="breadcrumb mb-0 p-0">
@@ -25,20 +25,10 @@
             @csrf
             @method('PUT')
             <div class="mb-3">
-                <label for="" class="form-label">Nama</label>
+                <label for="" class="form-label">Nama Kategori</label>
                 <input type="text" name="nama" class="form-control @error('nama') is-invlaid @enderror"
                 placeholder="nama" value="{{$kategori->nama}}">
             @error('nama')
-            <span class="invalid-feedback" role="alert">
-                <strong>{{ $message }}</strong>
-            </span>
-            @enderror
-            </div>
-            <div class="mb-3">
-                <label for="" class="form-label">Jumlah</label>
-                <input type="number" name="jumlah" class="form-control @error('jumlah') is-invlaid @enderror"
-                placeholder="jumlah" value="{{$kategori->jumlah}}">
-            @error('jumlah')
             <span class="invalid-feedback" role="alert">
                 <strong>{{ $message }}</strong>
             </span>

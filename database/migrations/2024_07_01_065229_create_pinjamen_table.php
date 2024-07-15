@@ -16,10 +16,11 @@ return new class extends Migration
             $table->unsignedBigInteger('id_barangs');
             $table->string('nama_peminjam');
             $table->date('tanggal_pinjam');
-            $table->integer('jumlah')->nullable();
+            $table->date('tanggal_pengembalian');
+            $table->unsignedBigInteger('jumlah');
             $table->string('status');
-            $table->foreign('id_barangs')->references('id')->on('barangs')->onDelete('cascade');
             $table->timestamps();
+            $table->foreign('id_barangs')->references('id')->on('barangs')->onDelete('cascade');
         });
     }
 

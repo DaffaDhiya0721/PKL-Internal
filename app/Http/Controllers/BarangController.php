@@ -31,16 +31,11 @@ class BarangController extends Controller
      */
     public function store(Request $request)
     {
-        $this->validate($request, [
-            'nama_barang' => 'required',
-            'jumlah' => 'required|nullable',
-            'id_kategori' => 'required',
-        ]);
-
         $barang = new Barang();
         $barang->nama_barang = $request->nama_barang;
         $barang->jumlah = $request->jumlah;
         $barang->id_kategori = $request->id_kategori;
+
         $barang->save();
         Alert::success('Success', 'Data Berhasil di Simpan')->autoClose(5000);
         return redirect()->route('barang.index');
@@ -63,11 +58,6 @@ class BarangController extends Controller
 
     public function update(Request $request, string $id)
     {
-        $this->validate($request, [
-            'nama_barang' => 'required',
-            'jumlah' => 'required|nullable',
-        ]);
-
         $barang = Barang::findOrFail($id);
         $barang->nama_barang = $request->nama_barang;
         $barang->jumlah = $request->jumlah;
