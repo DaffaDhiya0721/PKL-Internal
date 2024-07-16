@@ -44,7 +44,7 @@ class BarangKeluarController extends Controller
 
         $barang = Barang::findOrFail($request->id_barangs);
         if ($barang->jumlah < $request->jumlah) {
-            Alert::warning('Warning', 'Stok Tidak Cukup')->autoClose(5000);
+            Alert::warning('Warning', 'Jumlah Tidak Valid')->autoClose(5000);
             return redirect()->route('barang_keluar.index');
         } else {
             $barang->jumlah -= $request->jumlah;
@@ -83,7 +83,7 @@ class BarangKeluarController extends Controller
         $barang = Barang::findOrFail($barang_keluar->id_barangs);
 
         if ($barang->jumlah < $request->jumlah) {
-            Alert::warning('Warning', 'Stok Tidak Cukup')->autoClose(5000);
+            Alert::warning('Warning', 'Jumlah Tidak Valid')->autoClose(5000);
             return redirect()->route('barang_keluar.index');
         } else {
             $barang->jumlah += $barang_keluar->jumlah;

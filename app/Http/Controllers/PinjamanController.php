@@ -55,7 +55,7 @@ class PinjamanController extends Controller
 
         $barang = Barang::findOrFail($request->id_barangs);
         if ($barang->jumlah < $request->jumlah) {
-            Alert::warning('Warning', 'Jumlah Tidak Cukup')->autoClose(5000);
+            Alert::warning('Warning', 'Barang Tidak Cukup')->autoClose(5000);
             return redirect()->route('pinjaman.index');
         } else {
             $barang->jumlah -= $request->jumlah;
@@ -96,7 +96,7 @@ class PinjamanController extends Controller
         $pinjaman->update($request->all());
 
         if ($barang->jumlah < $request->jumlah) {
-            Alert::warning('Warning', 'Jumlah Tidak Cukup')->autoClose(5000);
+            Alert::warning('Warning', 'Barang Tidak Cukup')->autoClose(5000);
             return redirect()->route('pinjaman.index');
         } else {
             $barang->jumlah += $pinjaman->jumlah;
